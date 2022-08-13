@@ -13,6 +13,9 @@ export default defineNuxtConfig({
       ],
     },
   },
+  publicRuntimeConfig: {
+    FIRESTORE_API_KEY: process.env.FIRESTORE_API_KEY,
+  },
   css: ["@/styles.css"],
   postcss: {
     plugins: {

@@ -6,8 +6,10 @@ import { getFirestore } from "firebase/firestore/lite";
 let app, db;
 
 export default function () {
+  const config = useRuntimeConfig();
+
   const firebaseConfig = {
-    apiKey: "AIzaSyCw2EZI0ZV6gftL4Py4NQJGV1SjCd2vwPE",
+    apiKey: config.FIRESTORE_API_KEY,
     authDomain: "scrabbleleaderboard.firebaseapp.com",
     projectId: "scrabbleleaderboard",
     storageBucket: "scrabbleleaderboard.appspot.com",
