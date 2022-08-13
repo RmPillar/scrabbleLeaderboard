@@ -10,7 +10,7 @@ const handleLogin = (data) => {
 <template>
   <Form
     @submit="handleLogin"
-    class="mx-auto flex h-full w-6/12 flex-col items-center justify-center space-y-50"
+    class="mx-auto flex h-full flex-col items-center justify-center space-y-50 lg:w-6/12"
   >
     <FormInput
       class="w-full"

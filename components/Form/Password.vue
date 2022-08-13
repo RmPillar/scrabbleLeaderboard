@@ -56,13 +56,13 @@ const toggleShowPassword = () => {
         class="form-input__input peer w-full border-b-2 border-gray-800 bg-gray-100 pt-20 pb-5 font-pally text-2xl transition-colors duration-500 focus:outline-none lg:text-4xl"
         :class="
           !!errorMessage
-            ? 'focus:border-red-500 group-hover:border-red-500'
+            ? 'border-red-500'
             : 'focus:border-green-400 group-hover:border-green-400'
         "
       />
 
       <button
-        class="absolute right-0 top-6/12 w-40 -translate-y-6/12 text-gray-800 transition-colors duration-300"
+        class="absolute right-0 top-6/12 w-30 -translate-y-6/12 text-gray-800 transition-colors duration-300 lg:w-40"
         :class="
           !!errorMessage
             ? 'text-red-500'
