@@ -47,7 +47,7 @@ const {
       :placeholder="placeholder"
       @input="handleChange"
       @blur="handleBlur"
-      class="form-input__input w-full border-b-2 border-gray-800 bg-gray-100 pt-20 pb-5 font-pally text-2xl text-gray-800 transition-colors duration-500 focus:outline-none lg:text-4xl"
+      class="form-input__input w-full rounded-none border-b-2 border-gray-800 bg-gray-100 pt-20 pb-5 font-pally text-2xl text-gray-800 transition-colors duration-500 focus:outline-none lg:text-4xl"
       :class="
         !!errorMessage
           ? 'border-red-500'

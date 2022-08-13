@@ -45,7 +45,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative flex h-screen w-screen overflow-hidden bg-gray-100">
+  <div class="relative flex h-full overflow-hidden bg-gray-100">
     <ScreenHome v-if="state.loggedIn && activeScreen === 'home'" />
     <ScreenGame v-if="state.loggedIn && activeScreen === 'game'" />
     <ScreenLogin v-if="!state.loggedIn" />
