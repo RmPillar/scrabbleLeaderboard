@@ -40,7 +40,7 @@ watch(
 
 onMounted(() => {
   setupAuthListener(authWatcher);
-  signOut();
+  // signOut();
 });
 </script>
 

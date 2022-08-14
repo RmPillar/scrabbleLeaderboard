@@ -10,7 +10,7 @@ const setCurrentScreen = (screen) => {
 
 <template>
   <div
-    class="grid h-screen w-screen grid-cols-1 grid-rows-3 bg-gray-100 md:grid-cols-2"
+    class="grid h-full w-full grid-cols-1 grid-rows-3 bg-gray-100 md:grid-cols-2"
   >
     <button
       class="group col-span-1 row-span-1 flex flex-col items-center justify-center border-b-2 border-gray-800 bg-green-400 transition-colors duration-300 md:row-span-2 md:border-r-2 lg:bg-inherit lg:hover:bg-green-400"

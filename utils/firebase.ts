@@ -7,7 +7,12 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore/lite";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 
 import { dayMonthYearFromTimestamp } from ".";
 
@@ -83,17 +88,20 @@ export const getPlayer = (name: string) => {
 
 export const signIn = (email: string, password: string) => {
   const auth = getAuth();
+  return setPersistence(auth, browserSessionPersistence)
+    .then(() => {
+      signInWithEmailAndPassword(auth, email, password).then(
+        async (userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // const userToken = await user.getIdToken();
 
-  return signInWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      // const userToken = await user.getIdToken();
+          // localStorage.setItem("userToken", JSON.stringify({userToken}));
 
-      // localStorage.setItem("userToken", JSON.stringify({userToken}));
-
-      return { user };
-      // ...
+          return { user };
+          // ...
+        }
+      );
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -116,5 +124,6 @@ export const checkLoggedIn = async () => {
 
 export const setupAuthListener = (callback) => {
   const auth = getAuth();
+
   auth.onAuthStateChanged(callback);
 };
