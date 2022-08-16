@@ -8,18 +8,12 @@ const emit = defineEmits(["submit"]);
 
 const gameStore = useGameStore();
 
-const allowEndTurn = ref(false);
-
 const submitScore = (data) => {
   gameStore.setScore(data.score);
-  allowEndTurn.value = true;
 };
 
 const endTurn = () => {
-  if (allowEndTurn.value) {
-    gameStore.incrementTurn();
-    allowEndTurn.value = false;
-  }
+  gameStore.incrementTurn();
 };
 
 const finishGame = () => {
@@ -30,7 +24,7 @@ const finishGame = () => {
 
 <template>
   <div
-    class="col-span-2 flex flex-col items-center py-50 px-40 lg:row-span-2 lg:px-50 lg:py-100"
+    class="col-span-2 flex flex-grow flex-col items-center px-40 pt-50 pb-25 lg:row-span-2 lg:px-50 lg:pt-100"
   >
     <Form
       class="mb-50 flex w-full flex-col lg:flex-row lg:items-end"
@@ -48,10 +42,16 @@ const finishGame = () => {
       <BtnBlock label="Submit" class="min-w-content" />
     </Form>
     <div
-      class="flex w-full flex-col space-y-20 sm:flex-row sm:space-y-0 sm:space-x-30 lg:space-x-50"
+      class="mb-50 flex w-full flex-col space-y-20 sm:flex-row sm:space-y-0 sm:space-x-30 lg:space-x-50"
     >
-      <BtnBlock label="End Turn" @click="endTurn" :disabled="!allowEndTurn" />
-      <BtnBlock label="Finish Game" @click="finishGame" />
+      <BtnBlock label="End Turn" @click="endTurn" />
+    </div>
+    <div class="mt-auto mr-auto flex">
+      <BtnBlock
+        label="Finish Game"
+        @click="finishGame"
+        class="w-full sm:w-auto"
+      />
     </div>
   </div>
 </template>
