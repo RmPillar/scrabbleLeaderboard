@@ -47,7 +47,7 @@ onMounted(() => {
 
     <GameForm @submit="finishGame" />
 
-    <div class="absolute bottom-25 right-0 flex w-150 justify-start">
+    <div class="absolute bottom-25 right-0 hidden w-150 justify-start sm:flex">
       <GameTimer ref="timerRef" />
     </div>
   </div>
