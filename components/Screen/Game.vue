@@ -24,7 +24,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="relative grid h-full w-full grid-cols-2 bg-gray-100 lg:grid-cols-3 lg:grid-rows-2"
+    class="relative h-full w-full grid-cols-2 bg-gray-100 lg:grid lg:grid-cols-3 lg:grid-rows-2"
   >
     <div
       class="col-span-2 row-span-1 grid grid-cols-2 grid-rows-1 divide-x-2 divide-gray-800 border-b-2 border-gray-800 lg:col-span-1 lg:row-span-2 lg:grid-cols-1 lg:grid-rows-2 lg:divide-y-2 lg:border-b-0 lg:border-r-2"

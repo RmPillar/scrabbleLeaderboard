@@ -29,7 +29,9 @@ const finishGame = () => {
 </script>
 
 <template>
-  <div class="col-span-2 flex flex-col items-center px-50 py-100 lg:row-span-2">
+  <div
+    class="col-span-2 flex flex-col items-center py-50 px-40 lg:row-span-2 lg:px-50 lg:py-100"
+  >
     <Form
       class="mb-50 flex w-full flex-col lg:flex-row lg:items-end"
       @submit="submitScore"
