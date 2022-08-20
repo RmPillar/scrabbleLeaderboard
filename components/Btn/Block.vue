@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   label: string;
+  type?: "button" | "submit" | "reset";
   disabled?: boolean;
 }>();
 </script>
@@ -8,6 +9,7 @@ const props = defineProps<{
 <template>
   <button
     class="btn-block group relative overflow-hidden border-2 border-gray-800 px-30 py-20 transition-colors duration-300 hover:border-green-400 hover:bg-green-400 disabled:border-gray-300 disabled:hover:bg-transparent"
+    :type="type"
     :disabled="disabled"
   >
     <span
