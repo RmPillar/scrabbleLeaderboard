@@ -13,6 +13,7 @@ const timerRef = ref(null);
 const finishGame = async () => {
   await createMatch(gameStore.game, appStore.players, timerRef.value.timer);
   const data = await getPlayers();
+  gameStore.resetGame();
   appStore.setPlayers(data);
   appStore.setCurrentScreen("home");
 };

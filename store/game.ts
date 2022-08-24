@@ -43,6 +43,21 @@ export const useGameStore = defineStore({
     incrementTurn() {
       this.game.turn++;
     },
+    resetGame() {
+      this.game = {
+        scores: {
+          player1: [],
+          player2: [],
+        },
+        totalScores: {
+          player1: 0,
+          player2: 0,
+        },
+        winner: null,
+        loser: null,
+        turn: 0,
+      };
+    },
   },
   getters: {},
 });
