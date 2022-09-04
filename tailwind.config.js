@@ -91,7 +91,14 @@ module.exports = {
         "sans-serif",
       ],
     },
+    container: {
+      center: true,
+    },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    // require("@tailwindcss/forms")({
+    //   strategy: "base",
+    // }),
+  ],
 };

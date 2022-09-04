@@ -3,12 +3,29 @@ import { useAppStore } from "~~/store";
 import { useGameStore } from "~~/store/game";
 import { createMatch, getPlayers } from "~~/utils/firebase";
 
+import { GameStateType, SetupType } from "~~/types/game";
+
 const appStore = useAppStore();
 const gameStore = useGameStore();
 
-const startGame = ref(false);
+const state = reactive<GameStateType>({
+  startGame: false,
+  showSetup: true,
+  startTimer: false,
+  scoreMode: "Auto",
+  firstPlayer: "Robin",
+});
 
 const timerRef = ref(null);
+
+const startGame = (value: SetupType) => {
+  state.startGame = true;
+  state.startTimer = true;
+  state.showSetup = false;
+  state.scoreMode = value.scoreMode;
+  state.firstPlayer = value.firstPlayer;
+  gameStore.setActivePlayer(value.firstPlayer);
+};
 
 const finishGame = async () => {
   await createMatch(gameStore.game, appStore.players, timerRef.value.timer);
@@ -17,10 +34,6 @@ const finishGame = async () => {
   appStore.setPlayers(data);
   appStore.setCurrentScreen("home");
 };
-
-onMounted(() => {
-  startGame.value = true;
-});
 </script>
 
 <template>
@@ -35,21 +48,26 @@ onMounted(() => {
         :name="appStore.players[0].name"
         :score="gameStore.game.totalScores.player1"
         activeClass="bg-green-400"
-        :active="gameStore.game.turn % 2 === 0"
+        :active="gameStore.activePlayer === appStore.players[0].name"
       />
       <GamePlayer
         v-if="appStore.players[1]"
         :name="appStore.players[1].name"
         :score="gameStore.game.totalScores.player2"
         activeClass="bg-indigo-400"
-        :active="gameStore.game.turn % 2 === 1"
+        :active="gameStore.activePlayer === appStore.players[1].name"
       />
     </div>
 
-    <GameForm @submit="finishGame" />
+    <GameManualForm @submit="finishGame" v-if="state.scoreMode === 'Manual'" />
+    <GameAutoForm @submit="finishGame" v-if="state.scoreMode === 'Auto'" />
 
     <div class="absolute bottom-25 right-0 hidden w-150 justify-start sm:flex">
-      <GameTimer ref="timerRef" />
+      <GameTimer ref="timerRef" :start="state.startTimer" />
     </div>
+
+    <transition>
+      <GameSetup v-if="state.showSetup" @startGame="startGame" />
+    </transition>
   </div>
 </template>

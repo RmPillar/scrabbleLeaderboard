@@ -18,6 +18,10 @@ const {
   rules?: string;
 }>();
 
+const emit = defineEmits<{
+  (e: "input", value: string): void;
+}>();
+
 const {
   value: inputValue,
   errorMessage,
@@ -27,6 +31,13 @@ const {
 } = useField(name, rules, {
   initialValue: value,
 });
+
+const handleInput = ({ target }) => {
+  console.log(target.value);
+
+  emit("input", target.value);
+  handleChange(target.value);
+};
 </script>
 
 <template>
@@ -45,7 +56,7 @@ const {
       :type="type"
       :value="inputValue"
       :placeholder="placeholder"
-      @input="handleChange"
+      @input="handleInput"
       @blur="handleBlur"
       class="form-input__input w-full rounded-none border-b-2 border-gray-800 bg-gray-100 pt-20 pb-5 font-pally text-2xl text-gray-800 transition-colors duration-500 focus:outline-none lg:text-4xl"
       :class="

@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { getPlayers } from "~~/utils/firebase";
 
 export const useGameStore = defineStore({
   id: "game-store",
@@ -17,15 +18,20 @@ export const useGameStore = defineStore({
         loser: null,
         turn: 0,
       },
+      activePlayer: "Robin",
+      players: {
+        player1: "Robin",
+        player2: "Sami",
+      },
     };
   },
   actions: {
     setScore(score) {
-      if (this.game.turn % 2 === 0) {
+      if (this.activePlayer === this.players.player1) {
         this.game.totalScores.player1 =
           this.game.totalScores.player1 + parseInt(score);
         this.game.scores.player1.push(score);
-      } else {
+      } else if (this.activePlayer === this.players.player2) {
         this.game.totalScores.player2 =
           this.game.totalScores.player2 + parseInt(score);
         this.game.scores.player2.push(score);
@@ -40,8 +46,15 @@ export const useGameStore = defineStore({
         this.game.loser = "player1";
       }
     },
+    setActivePlayer(player) {
+      this.activePlayer = player;
+    },
     incrementTurn() {
       this.game.turn++;
+      this.activePlayer =
+        this.activePlayer === this.players.player1
+          ? this.players.player2
+          : this.players.player1;
     },
     resetGame() {
       this.game = {

@@ -1,26 +1,40 @@
 <script setup lang="ts">
 import { convertMsToMinutesSecondsMilliseconds } from "~~/utils";
+import { TimerStateType } from "~~/types/game";
 
-const msSinceStart = ref(0);
-const timer = ref("00:00:00");
-const interval = ref(null);
+const props = defineProps<{
+  start: boolean;
+}>();
 
-const startTimer = () => {
-  msSinceStart.value = 0;
+const state = reactive<TimerStateType>({
+  msSinceStart: 0,
+  timer: "00:00:00",
+  interval: null,
+});
+
+const startTimer = (): void => {
+  state.msSinceStart = 0;
   const startTime = Date.now();
-  interval.value = setInterval(() => {
-    msSinceStart.value = Date.now() - startTime;
-    timer.value = convertMsToMinutesSecondsMilliseconds(msSinceStart.value);
+  state.interval = setInterval(() => {
+    state.msSinceStart = Date.now() - startTime;
+    state.timer = convertMsToMinutesSecondsMilliseconds(state.msSinceStart);
   }, 1);
 };
 
-onMounted(startTimer);
+watch(
+  () => props.start,
+  (value) => {
+    if (value) {
+      startTimer();
+    }
+  }
+);
 
 defineExpose({
-  timer,
+  timer: state.timer,
 });
 </script>
 
 <template>
-  <span v-text="timer" class="font-pally text-3xl text-gray-800"></span>
+  <span v-text="state.timer" class="font-pally text-3xl text-gray-800"></span>
 </template>
