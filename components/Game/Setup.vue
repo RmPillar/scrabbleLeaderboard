@@ -32,11 +32,11 @@ const startGame = () => {
   <section
     class="game-setup absolute inset-0 z-40 h-full w-full bg-gray-900/50"
   >
-    <div class="flex h-full w-full items-center justify-center p-50">
+    <div class="flex h-full w-full items-center justify-center p-20 lg:p-50">
       <div class="flex w-full flex-col bg-gray-100">
-        <div class="mb-auto p-50">
+        <div class="mb-auto p-20 lg:p-50">
           <div class="mb-auto flex flex-col">
-            <h3 class="mb-20 font-pally text-5xl text-gray-800">
+            <h3 class="mb-20 font-pally text-3xl text-gray-800 lg:text-5xl">
               Who's going first?
             </h3>
 
@@ -47,7 +47,9 @@ const startGame = () => {
               @input="setFirstPlayer"
             />
 
-            <h3 class="mb-20 font-pally text-5xl text-gray-800">Score Mode:</h3>
+            <h3 class="mb-20 font-pally text-3xl text-gray-800 lg:text-5xl">
+              Score Mode:
+            </h3>
             <div class="flex items-center gap-20">
               <DualSelect
                 option-one="Auto"
@@ -60,7 +62,7 @@ const startGame = () => {
         </div>
 
         <button
-          class="flex h-[200px] w-full items-center justify-center border-t-2 border-gray-800 font-pally text-6xl text-gray-800 transition-colors duration-300 hover:bg-red-400 hover:text-gray-100"
+          class="flex h-100 w-full items-center justify-center border-t-2 border-gray-800 font-pally text-4xl text-gray-800 transition-colors duration-300 hover:bg-red-400 hover:text-gray-100 lg:h-[200px] lg:text-6xl"
           @click="startGame"
         >
           Start Game

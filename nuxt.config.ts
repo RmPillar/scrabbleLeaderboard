@@ -16,7 +16,11 @@ export default defineNuxtConfig({
   publicRuntimeConfig: {
     FIRESTORE_API_KEY: process.env.FIRESTORE_API_KEY,
   },
-  css: ["@/styles.css"],
+  css: [
+    "@/styles.css",
+    "@/node_modules/swiper/swiper.min.css",
+    "@/node_modules/swiper/modules/free-mode/free-mode.min.css",
+  ],
   postcss: {
     plugins: {
       "tailwindcss/nesting": {},

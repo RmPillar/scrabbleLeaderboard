@@ -26,25 +26,13 @@ const updateWord = (word) => {
   });
 };
 
-const updateMultiplier = (multiplier, index) => {
+const updateMultiplier = ({ multiplier, index }) => {
   state.wordArray[index].multiplier = multiplier;
 };
 
-const setWordMultiplier = (multiplier) => {
-  if (state.wordMultiplier === multiplier) {
-    state.wordMultiplier = 1;
-  } else {
-    state.wordMultiplier = multiplier;
-  }
+const handleBonusChange = ({ key, value }) => {
+  state[key] = value;
 };
-
-const setAllLetterBonus = () => {
-  state.allLetterBonus = state.allLetterBonus === 0 ? 50 : 0;
-};
-
-const setChallengeDeduction = () => [
-  (state.challengeDeduction = state.challengeDeduction === 0 ? -10 : 0),
-];
 
 const score = computed(
   () =>
@@ -77,59 +65,22 @@ const finishGame = () => {
 
 <template>
   <div
-    class="col-span-2 flex flex-grow flex-col items-center px-40 pt-50 pb-25 lg:row-span-2 lg:px-50 lg:pt-100"
+    class="col-span-2 flex flex-grow flex-col items-center overflow-hidden px-40 pt-40 pb-25 lg:row-span-2 xl:px-50 xl:pt-100"
   >
     <Form class="mb-50 w-full" @submit="submitScore">
       <div class="mb-50 flex w-full flex-col lg:flex-row lg:items-end">
         <FormInput label="Enter Your Word" name="word" @input="updateWord" />
       </div>
-      <div class="mb-50 flex min-h-120 flex-wrap gap-10">
-        <GameLetterTile
-          v-for="(letter, index) in state.wordArray"
-          :letter="letter"
-          :key="index"
-          @multiplierChange="
-            (multiplier) => updateMultiplier(multiplier, index)
-          "
-        />
-      </div>
+      <AutoFormWordSlider
+        class="mb-20 xl:mb-50"
+        :word-array="state.wordArray"
+        @multiplier-change="updateMultiplier"
+      />
 
-      <div class="mb-50 flex gap-10">
-        <button
-          @click="setWordMultiplier(2)"
-          class="relative flex aspect-square h-120 w-120 items-center justify-center border-2 border-gray-800 font-pally text-3xl transition-colors duration-300 hover:bg-yellow-400 hover:text-gray-50"
-          :class="{ 'bg-yellow-400 text-gray-50': state.wordMultiplier === 2 }"
-          type="button"
-        >
-          Double
-        </button>
-        <button
-          @click="setWordMultiplier(3)"
-          :class="{ 'bg-teal-400 text-gray-50': state.wordMultiplier === 3 }"
-          class="relative flex aspect-square h-120 w-120 items-center justify-center border-2 border-gray-800 font-pally text-3xl transition-colors duration-300 hover:bg-teal-400 hover:text-gray-50"
-          type="button"
-        >
-          Triple
-        </button>
-        <button
-          @click="setAllLetterBonus"
-          :class="{ 'bg-purple-400 text-gray-50': state.allLetterBonus === 50 }"
-          class="relative flex aspect-square h-120 w-120 items-center justify-center border-2 border-gray-800 font-pally text-3xl transition-colors duration-300 hover:bg-purple-400 hover:text-gray-50"
-          type="button"
-        >
-          +50
-        </button>
-        <button
-          @click="setChallengeDeduction"
-          :class="{
-            'bg-red-500 text-gray-50': state.challengeDeduction === -10,
-          }"
-          class="relative flex aspect-square h-120 w-120 items-center justify-center border-2 border-gray-800 font-pally text-3xl transition-colors duration-300 hover:bg-red-500 hover:text-gray-50"
-          type="button"
-        >
-          -10
-        </button>
-      </div>
+      <AutoFormBonusSlider
+        class="mb-50"
+        @changeBonusState="handleBonusChange"
+      />
 
       <h3 class="mb-20 font-pally text-3xl text-gray-800 lg:text-5xl">
         Score: {{ score }}
